@@ -142,7 +142,12 @@ public class StepperDemoUI extends UI {
         intStepper.setValue(1);
         intStepper.setStepAmount(1);
         intStepper.setCaption("IntStepper, step 1 (tabindex 3)");
-        intStepper.addClickListener(e -> Notification.show("clicked"));
+        intStepper.addClickListener(new StepperClickListener(){
+          @Override
+          public void stepperClick(StepperClickEvent e) {
+            Notification.show("clicked");
+          }
+        });
         intStepper.setTabIndex(3);
 
         floatStepper = new FloatStepper();
