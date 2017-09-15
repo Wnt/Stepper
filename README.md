@@ -4,6 +4,12 @@ value types.
 
 Implementations for integer, float and date values are provided.
 
+## Getting started
+
+Build project: `./gradlew build` 
+ 
+Run demo application: `./gradlew demo:vaadinRun`
+
 ## Usage 
 
 Example:
@@ -21,5 +27,4 @@ Example:
 	});
 
 ## License
-Code is licensed under Apache 2.0. Icons are under Creative Commons 3.0.
-Icons are from http://www.fatcow.com/free-icons
+Code is licensed under Apache 2.0.

@@ -1,6 +1,6 @@
 package org.vaadin.risto.stepper;
 
-import org.vaadin.risto.stepper.widgetset.client.shared.IntStepperState;
+import org.vaadin.risto.stepper.client.shared.IntStepperState;
 
 import com.vaadin.shared.communication.SharedState;
 
@@ -9,12 +9,12 @@ import com.vaadin.shared.communication.SharedState;
  * Field that allows stepping through values via given up/down controls.
  * Supports values of type Integer. Default value is 0.
  * </p>
- * 
- * @author Risto Yrjänä / Vaadin }>
- * 
+ *
+ * @author Risto Yrjänä / Vaadin
+ *
  */
-public class IntStepper extends AbstractStepper<Integer, Integer> implements
-        ValueFilteringStepper {
+public class IntStepper extends AbstractStepper<Integer, Integer>
+        implements ValueFilteringStepper {
 
     private static final long serialVersionUID = 1365274510273965118L;
 
@@ -29,7 +29,12 @@ public class IntStepper extends AbstractStepper<Integer, Integer> implements
     }
 
     @Override
-    public Class<Integer> getType() {
+    public Class<Integer> getValueType() {
+        return Integer.class;
+    }
+
+    @Override
+    public Class<Integer> getStepType() {
         return Integer.class;
     }
 

@@ -1,11 +1,10 @@
 package org.vaadin.risto.stepper;
 
-import java.math.BigDecimal;
+import org.vaadin.risto.stepper.client.shared.AbstractDecimalStepperState;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
-
-import org.vaadin.risto.stepper.widgetset.client.shared.AbstractDecimalStepperState;
 
 public abstract class AbstractDecimalStepper<T extends Number & Comparable<T>>
         extends AbstractStepper<T, T> implements ValueFilteringStepper {
@@ -25,7 +24,7 @@ public abstract class AbstractDecimalStepper<T extends Number & Comparable<T>>
     /**
      * Set the accuracy of the float representation.
      * 
-     * @param numberOfDecimals
+     * @param numberOfDecimals number of decimals to display
      */
     public void setNumberOfDecimals(int numberOfDecimals) {
         getState().numberOfDecimals = numberOfDecimals;
@@ -110,9 +109,9 @@ public abstract class AbstractDecimalStepper<T extends Number & Comparable<T>>
     protected DecimalFormat getDecimalFormat() {
         DecimalFormat format = decimalFormat;
         if (format == null) {
-            final DecimalFormatSymbols symbols = getLocale() != null ? DecimalFormatSymbols
-                    .getInstance(getLocale()) : DecimalFormatSymbols
-                    .getInstance();
+            final DecimalFormatSymbols symbols = getLocale() != null
+                    ? DecimalFormatSymbols.getInstance(getLocale())
+                    : DecimalFormatSymbols.getInstance();
             format = new DecimalFormat("#.#", symbols);
             format.setMinimumFractionDigits(0);
             format.setMaximumFractionDigits(getNumberOfDecimals());

@@ -1,35 +1,35 @@
-allprojects {
-    apply plugin: "eclipse-wtp"
-    apply plugin: "idea"
-
+plugins {
+    id 'fi.jasoft.plugin.vaadin' version '1.1.6' apply false
+    id "org.sonarqube" version "2.2"
 }
 
 //common for both projects
 subprojects {
-    repositories {
-        mavenCentral()
-    }
-
     ext.baseNameUpper = project.parent.name.capitalize()
     ext.baseNameLower = project.parent.name.toLowerCase()
 
-    apply plugin: "java"
+    apply plugin: 'java'
+    apply plugin: 'fi.jasoft.plugin.vaadin'
 
-    apply from: "http://plugins.jasoft.fi/vaadin.plugin"
+    repositories {
+        mavenCentral()
+        maven {
+            url "http://maven.vaadin.com/vaadin-addons"
+        }
+    }
 
-    //vaadin.jvmArgs=["-Xmx1024m"]
-    //vaadin.gwt.jvmArgs=["-Xmx1024m"]
-    vaadin.gwt.draftCompile = true
-    vaadin.gwt.strict = true
-    vaadin.manageWidgetset = false
+    vaadin {
+        version = "8.0.2"
+        logToConsole = true
+    }
 
-    vaadin.plugin.logToConsole = true
-    vaadin.addon.author = "Risto Yrjänä / Vaadin"
-    vaadin.addon.license = "Apache License 2.0"
-    vaadin.addon.title = baseNameUpper
+    vaadinCompile {
+        draftCompile = true
+        strict = true
+    }
 
-    sourceCompatibility = "1.7"
-    targetCompatibility = "1.7"
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
 
     group = "org.vaadin.risto.${baseNameLower}"
 
@@ -39,33 +39,49 @@ subprojects {
 
 //addon project, only creates the Directory-compatible JAR
 project(":addon") {
-    eclipse.project.name = "${baseNameUpper}-addon"
+    version = "2.4.0"
 
-    version = "2.2.0"
-    vaadin.widgetset = "${group}.widgetset.${baseNameUpper}Widgetset"
+    vaadin {
+        addon {
+            styles = ["/VAADIN/addons/stepper/stepper.scss"]
+            author = "Risto Yrjänä / Vaadin"
+            license = "Apache License 2.0"
+            title = baseNameUpper
+        }
+    }
+
+    vaadinCompile {
+        manageWidgetset = false
+        widgetset = "${group}.${baseNameUpper}Widgetset"
+    }
 
     dependencies {
-        testCompile "junit:junit:latest.release"
+        testCompile "junit:junit:4.12"
     }
 
     jar {
         from sourceSets.main.allJava //include sources
     }
 
-    war.enabled = false //war plugin applied by the Vaadin plugin, not needed here
+    war.enabled = false
 }
 
 //demo project, builds addon and packages demo UI as WAR
 project(":demo") {
 
-    eclipse.project.name = "${baseNameUpper}-demo"
+    vaadinCompile.manageWidgetset = true
+
+    vaadinRun {
+        server = 'jetty'
+        openInBrowser = false
+    }
 
     dependencies {
         compile project(":addon")
-        compile "com.google.guava:guava:latest.release"
+        compile group: 'com.google.guava', name: 'guava', version: '21.0'
     }
 
-    vaadin.widgetset = "${group}.widgetset.${baseNameUpper}DemoWidgetset"
+    war.enabled = true
 }
 
 task(dist, type: Sync, dependsOn: [':addon:jar', ':demo:war']) {
