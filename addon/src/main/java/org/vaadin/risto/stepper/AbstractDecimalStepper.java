@@ -76,7 +76,7 @@ public abstract class AbstractDecimalStepper<T extends Number & Comparable<T>>
      * This feature is experimental and may change or be completely removed in
      * future versions.
      * 
-     * @param enableValueFiltering
+     * @param enableValueFiltering whether or not to enable value filtering
      */
     @Override
     public void setValueFiltering(boolean enableValueFiltering) {
@@ -100,6 +100,7 @@ public abstract class AbstractDecimalStepper<T extends Number & Comparable<T>>
      * Sets the decimal format used for parsing and displaying float values.
      * Currently only the decimal separator is used when parsing values on the
      * client-side.
+     * @param decimalFormat the decimal format to set
      */
     public void setDecimalFormat(DecimalFormat decimalFormat) {
         this.decimalFormat = decimalFormat;

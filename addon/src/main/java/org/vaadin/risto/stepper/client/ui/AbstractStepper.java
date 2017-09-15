@@ -53,6 +53,8 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
 
     private boolean nullValueAllowed;
 
+    private boolean focusOnStep = true;
+
     private S stepAmount;
     private T maxValue;
     private T minValue;
@@ -86,9 +88,9 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
     /**
      * Calculate the string value of <code>current value + 1</code>
      * 
-     * @param startValue
-     * @return
-     * @throws Exception
+     * @param startValue the start value
+     * @return the increased value
+     * @throws Exception any exception that occurred
      */
     protected abstract String getIncreasedValue(String startValue)
             throws Exception;
@@ -96,9 +98,9 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
     /**
      * Calculate the string value of <code>current value - 1</code>
      * 
-     * @param startValue
-     * @return
-     * @throws Exception
+     * @param startValue the start value
+     * @return the decreased value
+     * @throws Exception any exception that occurred
      */
     protected abstract String getDecreasedValue(String startValue)
             throws Exception;
@@ -109,8 +111,8 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
      * {@link #getDecreasedValue(String)} must be able to compute a result from
      * this value.
      * 
-     * @param value
-     * @return
+     * @param value the value to compare
+     * @return if value is valid
      */
     public boolean isValidForType(String value) {
         return valueRegexp.test(value);
@@ -120,7 +122,7 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
      * Check if the given value is a valid, increased value. The given string is
      * guaranteed to be valid for this type.
      * 
-     * @param value
+     * @param value the value to compare
      * @return true is the given value is a valid value in respect to the
      *         maximum value.
      */
@@ -130,7 +132,7 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
      * Check if the given value is a valid, decreased value. The given string is
      * guaranteed to be valid for this type.
      * 
-     * @param value
+     * @param value the value to compare
      * @return true is the given value is a valid value in respect to the
      *         minumum value.
      */
@@ -140,8 +142,8 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
      * Parse the given String value. Used for setting the maximum and minimum .
      * values. Should return null on an empty string.
      * 
-     * @param value
-     * @return
+     * @param value the value to parse
+     * @return parsed value
      */
     public abstract T parseStringValue(String value);
 
@@ -166,6 +168,9 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
                     value = newValue;
                     valueUpdateTimer.schedule(updateDelay);
                     valueUpdateTimer.setValue(newValue);
+                    if (focusOnStep) {
+                        this.setFocus(true);
+                    }
                 }
             } catch (Exception e) {
                 valueUpdateTimer.cancel();
@@ -189,6 +194,9 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
                     value = newValue;
                     valueUpdateTimer.schedule(updateDelay);
                     valueUpdateTimer.setValue(newValue);
+                    if (focusOnStep) {
+                        this.setFocus(true);
+                    }
                 }
             } catch (Exception e) {
                 valueUpdateTimer.cancel();
@@ -201,7 +209,7 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
     /**
      * Set the value to the UI.
      * 
-     * @param newValue
+     * @param newValue the new value to set
      */
     public void setValue(String newValue) {
         if (isValueValid(newValue)) {
@@ -326,7 +334,7 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
     /**
      * Set the maximum possible value for this stepper.
      * 
-     * @param value
+     * @param value the maximum value
      *
      * @see #isLargerThanMin(String)
      * @see #isSmallerThanMax(String)
@@ -342,7 +350,7 @@ public abstract class AbstractStepper<T, S> extends FlowPanel
     /**
      * Set the minimum possible value for this stepper.
      * 
-     * @param value
+     * @param value the minumum value
      * @see #isLargerThanMin(String)
      * @see #isSmallerThanMax(String)
      */

@@ -138,7 +138,7 @@ public abstract class AbstractStepper<T, S> extends AbstractField<T>
     /**
      * Called whenever the parseStringValue throws an exception
      *
-     * @param e
+     * @param e the exception that was thrown
      */
     protected void handleParseException(StepperValueParseException e) {
         // NOOP
@@ -214,7 +214,6 @@ public abstract class AbstractStepper<T, S> extends AbstractField<T>
     /**
      * Add a click listener on the Stepper text field.
      * @param listener a click listener object to be executed on click
-     * @return a Registration object that allows you to remove the listener later on.
      */
     public void addClickListener(AbstractStepper.StepperClickListener listener) {
         addListener(AbstractStepper.StepperClickEvent.class, listener, AbstractStepper.StepperClickListener.STEPPER_CLICK_METHOD);
@@ -257,7 +256,7 @@ public abstract class AbstractStepper<T, S> extends AbstractField<T>
      * @param value
      *            the value from client
      * @return value in the correct type
-     * @throws StepperValueParseException
+     * @throws StepperValueParseException throw if parsing failed
      */
     protected abstract T parseStringValue(String value)
             throws StepperValueParseException;
@@ -308,7 +307,7 @@ public abstract class AbstractStepper<T, S> extends AbstractField<T>
 
         /**
          * The implementation of this method is called after a click on the Stepper
-         * @param event
+         * @param event the event to trigger
          */
         void stepperClick(StepperClickEvent event);
     }

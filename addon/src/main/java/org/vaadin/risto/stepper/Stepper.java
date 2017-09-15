@@ -22,7 +22,7 @@ public interface Stepper<T, S> extends Field<T> {
      * controls and the textfield. If not allowed, only the controls change the
      * value.
      * 
-     * @return
+     * @return if manual input is allowed
      */
     boolean isManualInputAllowed();
 
@@ -34,6 +34,7 @@ public interface Stepper<T, S> extends Field<T> {
      * events will be handled.
      * 
      * @author colinf
+     * @return if mouse wheel is enabled
      */
     boolean isMouseWheelEnabled();
 
@@ -44,7 +45,7 @@ public interface Stepper<T, S> extends Field<T> {
      * messages. Note that the Stepper controls still enforces the limits even
      * if invalid values are otherwise allowed.
      * 
-     * @return
+     * @return if invalid values are allowed
      */
     boolean isInvalidValuesAllowed();
 
@@ -57,7 +58,7 @@ public interface Stepper<T, S> extends Field<T> {
      * {@link #isInvalidValuesAllowed()}, still peforms range check on non-null
      * values. The default is false.
      * 
-     * @return
+     * @return if null value is allowed
      */
     boolean isNullValueAllowed();
 
@@ -67,7 +68,7 @@ public interface Stepper<T, S> extends Field<T> {
      * Set the amount for a single step when the the value is increased /
      * decreased
      * 
-     * @param amount
+     * @param amount the amount to step
      */
     void setStepAmount(S amount);
 
@@ -76,14 +77,14 @@ public interface Stepper<T, S> extends Field<T> {
     /**
      * Set the maximum value for this field.
      * 
-     * @param maxValue
+     * @param maxValue the maximum value
      */
     void setMaxValue(T maxValue);
 
     /**
      * Set the minumum value for this field.
      * 
-     * @param minValue
+     * @param minValue the minimum value
      */
     void setMinValue(T minValue);
 
@@ -94,7 +95,7 @@ public interface Stepper<T, S> extends Field<T> {
     /**
      * Set the {@link Resource} to use as the icon for increasing the value.
      *
-     * @param icon
+     * @param icon the icon for increase
      * @see Resource
      * @see com.vaadin.server.FontIcon
      */
@@ -103,7 +104,7 @@ public interface Stepper<T, S> extends Field<T> {
     /**
      * Set the {@link Resource} to use as the icon for decreasing the value.
      *
-     * @param icon
+     * @param icon the icon for decrease
      * @see Resource
      * @see com.vaadin.server.FontIcon
      */

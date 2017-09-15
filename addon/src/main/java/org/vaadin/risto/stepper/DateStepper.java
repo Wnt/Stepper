@@ -64,7 +64,7 @@ public class DateStepper extends AbstractStepper<Date, Integer> {
      * {@link DateStepperField
      * )}
      * 
-     * @param field
+     * @param field the field to set
      * @see DateStepperField
      */
     public void setStepField(DateStepperField field) {
@@ -134,8 +134,8 @@ public class DateStepper extends AbstractStepper<Date, Integer> {
     /**
      * Normalizes max and min dates by resetting hours, minutes etc.
      * 
-     * @param boundaryDate
-     * @return
+     * @param boundaryDate the non-normalized date
+     * @return the normalized date
      */
     protected Date normalizeBoundaryDate(Date boundaryDate) {
         if (boundaryDate == null) {
@@ -181,7 +181,7 @@ public class DateStepper extends AbstractStepper<Date, Integer> {
      * Please note that this feature is experimental, and not all patterns are
      * supported by the client-side implementation.
      * 
-     * @param dateFormat
+     * @param dateFormat the date format to use
      */
     public void setDateFormat(SimpleDateFormat dateFormat) {
         this.dateFormat = dateFormat;
