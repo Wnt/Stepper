@@ -18,6 +18,8 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import org.vaadin.risto.stepper.AbstractStepper.StepperClickEvent;
+import org.vaadin.risto.stepper.AbstractStepper.StepperClickListener;
 import org.vaadin.risto.stepper.BigDecimalStepper;
 import org.vaadin.risto.stepper.DateStepper;
 import org.vaadin.risto.stepper.FloatStepper;
